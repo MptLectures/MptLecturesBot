@@ -19,10 +19,10 @@ function App() {
                 </div>
             </header>
             <Routes>
-                <Route path="/Web/" element={<Home />} />
-                <Route path="/Web/Lectures" element={<Lectures />} />
-                <Route path="/Web/Info" element={<Info />} />
-                <Route path="/Web/Author" element={<Author />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/Lectures" element={<Lectures />} />
+                <Route path="/Info" element={<Info />} />
+                <Route path="/Author" element={<Author />} />
             </Routes>
         </>
     )
