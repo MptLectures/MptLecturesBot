@@ -11,15 +11,15 @@ function App() {
             <header>
                 <div className="home-header_grid">
                     <div className="home-header_button">
-                        <Link className="self-links" to="/">Главная страница</Link>
-                        <Link className="self-links" to="/Info">Информация</Link>
-                        <Link className="self-links" to="/Author">Стать автором</Link>
+                        <Link className="self-links" to="/Web">Главная страница</Link>
+                        <Link className="self-links" to="/Web//Info">Информация</Link>
+                        <Link className="self-links" to="/Web/Author">Стать автором</Link>
                         <a className="self-links" href="https://t.me/idLavr0v13">Помощь</a>
                     </div>
                 </div>
             </header>
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/Web" element={<Home />} />
                 <Route path="/Lectures" element={<Lectures />} />
                 <Route path="/Info" element={<Info />} />
                 <Route path="/Author" element={<Author />} />
