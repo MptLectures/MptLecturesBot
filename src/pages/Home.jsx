@@ -16,7 +16,7 @@ function  Home() {
                         <p className="home-date_text_main">24 апреля, 2024</p>
                     </div>
                     <p className="home-info_text_main">{homeInfo}</p>
-                    <Link to="/Lectures">
+                    <Link to="/Web/Lectures">
                         <button className="home-button_main">Открыть</button>
                     </Link>
                 </div>
