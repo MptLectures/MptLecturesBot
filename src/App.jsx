@@ -14,7 +14,7 @@ function App() {
                         <Link className="self-links" to="/Web">Главная страница</Link>
                         <Link className="self-links" to="/Web/Info">Информация</Link>
                         <Link className="self-links" to="/Web/Author">Стать автором</Link>
-                        <a className="self-links" href="https://t.me/idLavr0v13">Помощь</a>
+                        <a className="self-links" href="https://t.me/MptLecturesBot">Помощь</a>
                     </div>
                 </div>
             </header>
