@@ -7,14 +7,14 @@ function Info() {
                 <div className="info-admin_project">
                     <p className="info-card_display">Авторы проекта</p>
                     <div className="info-card">
-                        <img src="../../public/lavr0v13-avatar.png"/>
+                        <img src="https://web.telegram.org/2c9e1e1b-041b-43e5-a69f-520dfa82f99a"/>
                         <div className="info-card_text">
                             <p className="info-card_text_name">Максим Лавров Дмитриевич</p>
                             <p className="info-card_text_tg">Telegram: <a className="linktg" href="https://t.me/idLavr0v13">@idLavr0v13</a></p>
                         </div>
                     </div>
                     <div className="info-card">
-                        <img src="../../public/dimkaavatar.png"/>
+                        <img src="https://web.telegram.org/4e6fe6c0-4d54-41be-8d64-eab5351f3f58"/>
                         <div className="info-card_text">
                             <p className="info-card_text_name">Дмитрий Кирилов Сергеевич</p>
                             <p className="info-card_text_tg">Telegram: <a className="linktg" href="https://t.me/BIG_zh0pa">@BIG_zh0pa</a></p>
