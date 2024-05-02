@@ -1,11 +1,12 @@
 import '../App.css'
+import {Link} from 'react-router-dom'
 
 function Lectures() {
     return (
         <>
             <header>
                 <div className="home-header_button">
-                    <a className="self-links" href="./index.html">Вернуться в главное меню</a>
+                    <Link className="self-links" to="/Web">Вернуться в главное меню</Link>
                 </div>
             </header>
             <div className="choose-mainblock">
