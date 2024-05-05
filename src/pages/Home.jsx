@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import { Octokit } from 'octokit';
+import { useState, useEffect } from 'react'
 
 const octokit = new Octokit({
     auth: import.meta.env.VITE_GITHUB_TOKEN,
