@@ -2,21 +2,13 @@ import {Link} from "react-router-dom";
 import { Octokit } from 'octokit';
 import { useState, useEffect } from 'react'
 
-const octokit = new Octokit({
-    auth: import.meta.env.VITE_GITHUB_TOKEN,
-});
+const octokit = new Octokit();
 
 const OWNER = 'EtoNeAnanasbI95';
 const REPO = 'Web';
 
 function LastUpdateTime() {
     const [updateTime, setUpdateTime] = useState(null);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
-    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
-
     useEffect(() => {
         const request = octokit.request('GET /repos/{owner}/{repo}/activity', {
         owner: OWNER,
