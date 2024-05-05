@@ -5,7 +5,7 @@ on:
     branches:
       - TestingDeployBranch
 env:
-  VITE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
   
 jobs:
   build:
