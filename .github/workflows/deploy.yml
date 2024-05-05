@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - TestingDeployBranch
-
+env:
+  VITE_GITHUB_TOKEN: ${{ secrets.VITE_GITHUB_TOKEN }}
+  
 jobs:
   build:
     name: Build
