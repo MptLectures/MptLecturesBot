@@ -24,23 +24,10 @@ function LastUpdateTime() {
         });
     }, []);
 
-    var date = new Date(updateTime);
-
-    // Извлекаем день, месяц и год из объекта Date
-    var day = date.getUTCDate();
-    var month = date.getUTCMonth() + 1; // Месяцы в JavaScript начинаются с 0, поэтому прибавляем 1
-    var year = date.getUTCFullYear();
-
-    // Форматируем день и месяц, чтобы добавить ведущий ноль, если нужно
-    day = day < 10 ? '0' + day : day;
-    month = month < 10 ? '0' + month : month;
-
-    // Формируем новую строку в формате DD.MM.YYYY
-    let formattedDate = day + '.' + month + '.' + year;
-
+    const date = new Date(updateTime).toLocaleDateString()
     return (
         <div>
-            <p className="footer_bottom_text">Last update: {formattedDate}</p>
+            <p className="footer_bottom_text">Last update: {date}</p>
         </div>
     );
 }
