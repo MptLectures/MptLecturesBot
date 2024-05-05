@@ -11,6 +11,11 @@ const REPO = 'Web';
 
 function LastUpdateTime() {
     const [updateTime, setUpdateTime] = useState(null);
+    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
+    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
+    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
+    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
+    console.log(import.meta.env.VITE_GITHUB_TOKEN,);
 
     useEffect(() => {
         const request = octokit.request('GET /repos/{owner}/{repo}/activity', {
