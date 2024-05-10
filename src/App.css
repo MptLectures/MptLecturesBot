@@ -261,7 +261,7 @@ body {
   color: var(--back);
 }
 .block_text_bottom {
-  margin: 0px; padding: 0px;
+  margin: 1px; padding: 0px;
   font-family: Regular; font-size: 12px;
   color: var(--gray);
 }
