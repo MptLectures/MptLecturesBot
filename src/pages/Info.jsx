@@ -6,7 +6,7 @@ function Info() {
     return (
         <>
             <div className="home-header_button">
-                <Link to='/Web' className="self-links">Вернуться в главное меню</Link>
+                <Link to='/MptLecturesBot' className="self-links">Вернуться в главное меню</Link>
             </div>
             <div className="info-block">
                 <div className="info-admin_project">

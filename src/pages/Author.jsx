@@ -5,7 +5,7 @@ function Author() {
     return (
         <>
             <div className="home-header_button">
-                <Link to='/Web' className="self-links">Вернуться в главное меню</Link>
+                <Link to='/MptLecturesBot' className="self-links">Вернуться в главное меню</Link>
             </div>
             <div className="autor-block">
                 <p className="autor-block_h">Как стать автором?</p>

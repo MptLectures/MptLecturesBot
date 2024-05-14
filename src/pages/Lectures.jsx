@@ -6,7 +6,7 @@ function Lectures() {
         <>
             <header>
                 <div className="home-header_button">
-                    <Link className="self-links" to="/Web">Вернуться в главное меню</Link>
+                    <Link className="self-links" to="/MptLecturesBot">Вернуться в главное меню</Link>
                 </div>
             </header>
             <div className="choose-mainblock">

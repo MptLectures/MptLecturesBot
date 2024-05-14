@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 
 const octokit = new Octokit();
 
-const OWNER = 'EtoNeAnanasbI95';
-const REPO = 'Web';
+const OWNER = 'MptLectures';
+const REPO = 'MptLecturesBot';
 
 function LastUpdateTime() {
     const [updateTime, setUpdateTime] = useState(null);
@@ -39,8 +39,8 @@ function  Home() {
             <header>
                 <div className="home-header_grid">
                     <div className="home-header_button">
-                        <Link className="self-links" to="/Web/Info">Информация</Link>
-                        <Link className="self-links" to="/Web/Author">Стать автором</Link>
+                        <Link className="self-links" to="/MptLecturesBot/Info">Информация</Link>
+                        <Link className="self-links" to="/MptLecturesBot/Author">Стать автором</Link>
                         <a className="self-links" href="https://t.me/MptLecturesBot">Помощь</a>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ function  Home() {
                         <p className="home-date_text_main">24 апреля, 2024</p>
                     </div>
                     <p className="home-info_text_main">{homeInfo}</p>
-                    <Link to="/Web/Lectures">
+                    <Link to="/MptLecturesBot/Lectures">
                         <button className="home-button_main">Открыть</button>
                     </Link>
                 </div>
