@@ -3,7 +3,8 @@ const { OpenAI } = require('openai')
 require('dotenv').config()
 const { generateUpdateMiddleware } = require("telegraf-middleware-console-time") 
 const { Bot, InlineKeyboard, session } = require('grammy')
-const { conversations, createConversation } = require("@grammyjs/conversations");
+const { conversations, createConversation } = require("@grammyjs/conversations")
+const fs = require("fs")
 
 const bot = new Bot(process.env.MPTLECTUTES)
 
@@ -53,11 +54,17 @@ bot.command('start', async (ctx) => {
 })
 
 bot.command("queue_start", async (ctx) => {
+    const data = fs.readFile("Queue.json", "utf8")
+    const queues = JSON.parse(data)
+
+
     const queueKeyboard = new InlineKeyboard()
     .text("Текущая очередь: \n", "q#join")
     await ctx.reply('Давайте создадим очередь: ', {
         reply_markup: queueKeyboard,
     })
+
+    fs.writeFile("Queue.json", JSON.stringify(queues, null, 2))
 })
 
 bot.callbackQuery('q#join', async (ctx) => {
