@@ -12,14 +12,14 @@ const openai = new OpenAI({
 })
 
 async function GenerateTargetOrTotal(conversation, ctx) {
-    await ctx.reply("Type your technical task:");
-    const { message } = await conversation.wait();
-    await ctx.reply(`Creating new total, ${message.text}!`);
+    await ctx.reply("Введите ваше ТЗ:")
+    const { message } = await conversation.wait()
+    await ctx.reply(`Создаю цель и вывод исходя из:\n${message.text}!`)
     const answer = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'system', content: message }],
+        messages: [{ role: 'user', content: message }],
     });
-    await ctx.reply(answer.choices[0]);
+    await ctx.reply(answer.choices[0])
 }
 
 bot.use(session({
