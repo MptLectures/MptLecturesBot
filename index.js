@@ -54,26 +54,49 @@ bot.command('start', async (ctx) => {
 })
 
 bot.command("queue_start", async (ctx) => {
-    const data = fs.readFile("Queue.json", "utf8")
+    const data = fs.readFile("Queue.json", "utf8", (err, data) => {
+        if (err) {
+            console.error('Error reading file:', err)
+        }
+    })
 
     let queues
 
-    try {queues = JSON.parse(data)}
-    catch (e) {queues = []}
+    try {
+        queues = JSON.parse(data)
+        queues.forEach(async item => {
+            if (item.chatId === ctx.chatId) {
+                await bot.api.deleteMessage(item.chatId, item.messageId)
+            }
+        })
+        console.log("AHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAH")
+        console.log(queues)
+    }
+    catch (e) {
+
+        console.error("AHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAH", e)
+        queues = []
+    }
 
     const queueKeyboard = new InlineKeyboard()
     .text("Текущая очередь: \n", "q#join")
-    await ctx.reply('Давайте создадим очередь: ', {
+    const message = await ctx.reply('Давайте создадим очередь: ', {
         reply_markup: queueKeyboard,
-    }).then((sentMessage) => {
-        const messageInfo = {
-            chatId: sentMessage.chatId,
-            messageId: sentMessage.messageId
-        }
-        queues.push(messageInfo)
     })
+    
+    const messageInfo = {
+        chatId: message.chat.id,
+        messageId: message.message_id
+    }
 
-    fs.writeFile("Queue.json", JSON.stringify(queues, null, 2))
+    queues.push(messageInfo)
+
+    fs.writeFile("Queue.json", JSON.stringify(queues, null, 2), (err) => {
+        if (err) {
+            console.error("errore:", err);
+        } else {
+            console.log("File succsefly writen");
+        }})
 })
 
 bot.callbackQuery('q#join', async (ctx) => {
