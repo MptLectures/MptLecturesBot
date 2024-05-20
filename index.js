@@ -55,13 +55,22 @@ bot.command('start', async (ctx) => {
 
 bot.command("queue_start", async (ctx) => {
     const data = fs.readFile("Queue.json", "utf8")
-    const queues = JSON.parse(data)
 
+    let queues
+
+    try {queues = JSON.parse(data)}
+    catch (e) {queues = []}
 
     const queueKeyboard = new InlineKeyboard()
     .text("Текущая очередь: \n", "q#join")
     await ctx.reply('Давайте создадим очередь: ', {
         reply_markup: queueKeyboard,
+    }).then((sentMessage) => {
+        const messageInfo = {
+            chatId: sentMessage.chatId,
+            messageId: sentMessage.messageId
+        }
+        queues.push(messageInfo)
     })
 
     fs.writeFile("Queue.json", JSON.stringify(queues, null, 2))
