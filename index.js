@@ -2,11 +2,16 @@ const { helloKb } = require('./keyboards.js')
 const { OpenAI } = require('openai') 
 require('dotenv').config()
 const { generateUpdateMiddleware } = require("telegraf-middleware-console-time") 
-const { Bot, InlineKeyboard, session } = require('grammy')
+const { Bot, InlineKeyboard, session, webhookCallback } = require('grammy')
 const { conversations, createConversation } = require("@grammyjs/conversations")
 const fs = require("fs")
+const express = require('express')
 
 const bot = new Bot(process.env.MPTLECTUTES)
+
+const app = express()
+app.use(express.json())
+app.use(webhookCallback(bot, 'express'))
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI,
@@ -54,29 +59,28 @@ bot.command('start', async (ctx) => {
 })
 
 bot.command("queue_start", async (ctx) => {
-    const data = fs.readFile("Queue.json", "utf8", (err, data) => {
-        if (err) {
-            console.error('Error reading file:', err)
-        }
-    })
-
     let queues
-
     try {
-        queues = JSON.parse(data)
+        queues = fs.existsSync('Queue.json') ? JSON.parse(fs.readFileSync('Queue.json')) : [];
+        console.info("queues res")
+        console.log(queues)
         queues.forEach(async item => {
-            if (item.chatId === ctx.chatId) {
-                await bot.api.deleteMessage(item.chatId, item.messageId)
+            try {
+                if (item.chatId === ctx.chatId) {
+                    await bot.api.deleteMessage(item.chatId, item.messageId)
+                    const index = queues.indexOf(item)
+                    if (index !== -1) {
+                        queues.splice(index, 1)
+                        console.log(`Data successfully delete from json data obejct. ${item} deleted from ${queues}`)
+                    }
+                    console.log(`Message ${item.messageId} deleted successfully`)
+                }
+            } catch (e) {
+                console.error(`Failed to delete message ${item.messageId}:`, e.description);
             }
         })
-        console.log("AHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAH")
-        console.log(queues)
     }
-    catch (e) {
-
-        console.error("AHAHAHAHAHAHHHAHAHAHAHAHAHAHAHAHAHAHAHAH", e)
-        queues = []
-    }
+    catch (e) {console.error("Errore", e)}
 
     const queueKeyboard = new InlineKeyboard()
     .text("Текущая очередь: \n", "q#join")
