@@ -1,4 +1,4 @@
-const { helloKb } = require('./keyboards.js')
+const kb  = require('./keyboards.js')
 const { OpenAI } = require('openai') 
 require('dotenv').config()
 const { generateUpdateMiddleware } = require("telegraf-middleware-console-time") 
@@ -46,6 +46,9 @@ bot.api.setMyCommands([
         command: "queue_start", description: "Запустить очередь",
     },
     {
+        command: "how_to_use", description: "как пользоваться",
+    },
+    {
         command: "create_target_and_total", description: "Сгенерировать цель и вывод для практической работы"
     }
 ])
@@ -55,7 +58,11 @@ bot.command("create_target_and_total", async (ctx) => {
 });
 
 bot.command('start', async (ctx) => {
-    await ctx.reply("Привет!❤️\nЭто бот в котором будут собраны лекции 2 курса📚, а так он способен создавать очереди, на сдачу каких либо работ!)", { reply_markup: helloKb })
+    await ctx.reply("Привет!❤️\nЭто бот в котором будут собраны лекции 2 курса📚, а так он способен создавать очереди, на сдачу каких либо работ!)", { reply_markup: kb.helloKb })
+})
+
+bot.command("how_to_use", async (ctx) => {
+
 })
 
 bot.command("queue_start", async (ctx) => {
