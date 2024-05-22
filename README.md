@@ -1,10 +1,10 @@
 <h1>MPT lectures bot react layout</h1> 
 
-* This is a bot for MPT students. He is store many notes inside himself.
+* This is bot for MPT students. He stores many notes inside himself.
 
-* If you want to be a creator notes, please contact with [me](https://t.me/BIG_zh0pa)
+* If you want to be a creator of notes, please contact [me](https://t.me/BIG_zh0pa)
 
-Enjoy this)
+Enjoy it)
 
 <h2>Contact info</h2>
 
