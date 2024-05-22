@@ -64,11 +64,10 @@ bot.command("queue_start", async (ctx) => {
         queues = fs.existsSync('Queue.json') ? JSON.parse(fs.readFileSync('Queue.json')) : [];
         console.info("queues res")
         console.log(queues)
-        queues.forEach(async item => {
+        queues.forEach(async (item, index) => {
             try {
                 if (item.chatId === ctx.chatId) {
                     await bot.api.deleteMessage(item.chatId, item.messageId)
-                    const index = queues.indexOf(item)
                     if (index !== -1) {
                         queues.splice(index, 1)
                         console.log(`Data successfully delete from json data obejct. ${item} deleted from ${queues}`)
