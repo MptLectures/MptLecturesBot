@@ -25,22 +25,16 @@ const Lectures = () => {
             try {
                 setLoading(true);
 
-                const data = await getResponse(id, 'blocks', '/children');
-                const dataPage = await getResponse(id, 'pages', '');
+                const data = await getResponse(id);
 
-                if (dataPage.properties?.Name?.title) {
-                    setHeader(dataPage.properties.Name.title[0].plain_text);
-                } else if (dataPage.properties?.title?.title) {
-                    setHeader(dataPage.properties.title.title[0].plain_text);
-                }
+                setHeader(data.lecturesContents[0].content);
 
-                if (dataPage?.icon != null) {
-                    setIconType(dataPage.icon.type);
-                    setIcon(dataPage.icon[dataPage.icon.type]);
-                }
-
-                const processedContent = await createListContent(data.results);
-                setContent(processedContent);
+                const iconModel = data.lecturesContents[1];
+                console.log(iconModel.content);
+                setIconType(iconModel.type);
+                console.log(iconModel.type);
+                setIcon(iconModel.content);
+                setContent(data.lecturesContents);
             } catch (e) {
                 console.error(e);
             } finally {
@@ -50,23 +44,6 @@ const Lectures = () => {
 
         loadPage(pageId);
     }, [pageId]);
-
-    const createListContent = async (data) => {
-        const contentPage = [];
-
-        for (const element of data) {
-            const type = element.type;
-            const itemContent = { type: type, content: element[element.type], id: element.id };
-
-            if (element.has_children && type !== 'child_page') {
-                const response = await getResponse(element.id, 'blocks', '/children');
-                itemContent.children = await createListContent(response.results);
-            }
-
-            contentPage.push(itemContent);
-        }
-        return contentPage;
-    };
 
     const renderRichText = (richTextArray) => {
         if (!Array.isArray(richTextArray)) return null;
@@ -195,27 +172,22 @@ const Lectures = () => {
 
     return (
         <div>
-            {iconType === 'emoji' ? <h1 className={"logo"}>{icon}</h1> : <img src={icon.url} className={"logoImg"} />}
-            <h1>{header}</h1>
+            {!icon?.url ? <h1 className={"logo"}>{icon}</h1> : <img src={icon.url} className={"logoImg"} />}
+            <h1>{renderRichText(header)}</h1>
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 {loading ? <div>Loading...</div> : renderContent(content)}
             </div>
         </div>
     );
 
-    async function getResponse(id, type, info) {
-        const token = import.meta.env.VITE_NOTION_TOKEN;
-        const response = await fetch(`/api/v1/${type}/${id}${info}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Notion-Version': '2022-06-28',
-            }
+    async function getResponse(id) {
+        console.log(`https://sbgsrnr.zapto.org/api/v1/${id}`)
+        const response = await fetch(`https://sbgsrnr.zapto.org/api/v1/${id}`, {
+            method: 'GET'
         });
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             return data;
         } else {
             throw new Error("Bad request");
