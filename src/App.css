@@ -339,3 +339,19 @@ quote {
   margin: 16px 0;
   border-radius: 4px;
 }
+
+.latex {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.child_page {
+  width: 100%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.callout-content {
+  white-space: pre-line;
+}

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
 import "../App.css"
+import Latex from "../components/Latex.jsx"
 
 const Lectures = () => {
     const [content, setContent] = useState([]);
     const [loading, setLoading] = useState(false);
     const [icon, setIcon] = useState("🎓");
-    const [iconType, setIconType] = useState('emoji');
     const [header, setHeader] = useState('');
     const [pageId, setPageId] = useState('');
 
@@ -27,13 +27,9 @@ const Lectures = () => {
 
                 const data = await getResponse(id);
 
-                setHeader(data.lecturesContents[0].content);
+                setHeader(data.header);
 
-                const iconModel = data.lecturesContents[1];
-                console.log(iconModel.content);
-                setIconType(iconModel.type);
-                console.log(iconModel.type);
-                setIcon(iconModel.content);
+                setIcon(data.icon);
                 setContent(data.lecturesContents);
             } catch (e) {
                 console.error(e);
@@ -153,9 +149,9 @@ const Lectures = () => {
                 case 'divider':
                     return <hr/>
                 case 'equation':
-                    return <Latex children={item.content.expression}/>
+                    return <Latex content={item.content.expression}/>
                 case 'child_page':
-                    return <button key={index} onClick={() => {navigate(`${location.pathname}/${item.id}`);}} className='multiline'>
+                    return <button key={index} onClick={() => {navigate(`${location.pathname}/${item.id}`);}} className={item.type + " multiline"}>
                                 {item.content?.title}
                                 {renderRichText(item.content?.rich_text)}
                                 {item.children && renderContent(item.children)}
@@ -171,11 +167,13 @@ const Lectures = () => {
     };
 
     return (
-        <div>
-            {!icon?.url ? <h1 className={"logo"}>{icon}</h1> : <img src={icon.url} className={"logoImg"} />}
-            <h1>{renderRichText(header)}</h1>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                {loading ? <div>Loading...</div> : renderContent(content)}
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '310px' }}>
+                {!icon?.url ? <h1 className={"logo"}>{icon}</h1> : <img src={icon.url} className={"logoImg"} />}
+                <h1>{renderRichText(header)}</h1>
+                <div >
+                    {loading ? <div>Loading...</div> : renderContent(content)}
+                </div>
             </div>
         </div>
     );
