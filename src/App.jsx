@@ -14,7 +14,7 @@ function App() {
                 <Route path="/MptLecturesBot/Semesters" element={<Semesters />} />
                 <Route path="/MptLecturesBot/Info" element={<Info />} />
                 <Route path="/MptLecturesBot/Author" element={<Author />} />
-                <Route path="*" element={<Lectures />} />
+                {/*<Route path="*" element={<Lectures />} />*/}
             </Routes>
         </>
     )
