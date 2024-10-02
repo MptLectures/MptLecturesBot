@@ -328,12 +328,12 @@ th, td {
 thead {
   background-color: var(--light-gray);
 }
-
+/*
 .multiline {
   white-space: pre-line;
-}
+}*/
 
-quote {
+.quote {
   border-left: 4px solid #ccc;
   padding-left: 16px;
   margin: 16px 0;
@@ -352,6 +352,30 @@ quote {
   margin-bottom: 2px;
 }
 
+.child_page span, .child_page {
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.child_page span {
+  display: block;
+  width: 100%;
+}
+
 .callout-content {
   white-space: pre-line;
 }
+
+.lectures {
+  margin-bottom: 30px;
+}
+
+.lectures * {
+  white-space: pre-line;
+}
+
+.lectures h1 {
+  margin: 10px 0;
+}
+

@@ -43,7 +43,7 @@ const Lectures = () => {
 
     const renderRichText = (richTextArray) => {
         if (!Array.isArray(richTextArray)) return null;
-
+        console.log(richTextArray);
         return richTextArray.map((text, index) => {
             const { annotations = {}, text: { content = '' } = {} } = text;
             let style = {};
@@ -80,9 +80,10 @@ const Lectures = () => {
         table: 'table',
         table_row: 'tr',
         callout: 'callout',
-        quote: 'quote',
+        quote: 'div',
         divider: 'hr',
-        equation: 'Latex'
+        equation: 'Latex',
+        child_database: 'div'
     };
 
     const renderContent = (contents, listCounters = 0) => {
@@ -129,7 +130,7 @@ const Lectures = () => {
                         <tr>
                             {item.content?.cells.map((cell, index) => {
                                 return (
-                                    <td key={index} className='multiline'>
+                                    <td key={index} className=''>
                                         {renderRichText(cell)}
                                     </td>
                                 )
@@ -151,14 +152,14 @@ const Lectures = () => {
                 case 'equation':
                     return <Latex content={item.content.expression}/>
                 case 'child_page':
-                    return <button key={index} onClick={() => {navigate(`${location.pathname}/${item.id}`);}} className={item.type + " multiline"}>
+                    return <button key={index} onClick={() => {navigate(`${location.pathname}/${item.id}`);}} className={item.type}>
                                 {item.content?.title}
-                                {renderRichText(item.content?.rich_text)}
+                                {renderRichText(item.content?.rich_text ? item.content?.rich_text : item.content)}
                                 {item.children && renderContent(item.children)}
                             </button>
                 default:
-                    return <ListTag key={index} className='multiline'>
-                        {item.content?.title}
+                    return <ListTag key={index} className={item.type}>
+                        {/*{item.content?.title}*/}
                         {renderRichText(item.content?.rich_text)}
                         {item.children && renderContent(item.children)}
                     </ListTag>;
@@ -167,8 +168,8 @@ const Lectures = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ width: '310px' }}>
+        <div className="lectures" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ width: '95%' }}>
                 {!icon?.url ? <h1 className={"logo"}>{icon}</h1> : <img src={icon.url} className={"logoImg"} />}
                 <h1>{renderRichText(header)}</h1>
                 <div >
@@ -186,6 +187,7 @@ const Lectures = () => {
 
         if (response.ok) {
             const data = await response.json();
+            console.log(data);
             return data;
         } else {
             throw new Error("Bad request");

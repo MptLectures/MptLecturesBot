@@ -49,6 +49,13 @@ button:focus-visible {
 }
 
 .logoImg{
-    width: 15%;
-    height: 15%;
+    width: 10%;
+    height: auto;
+    margin-top: 10px;
+}
+
+@media (max-width : 992px) {
+    .logoImg{
+        width: 22%;
+    }
 }
