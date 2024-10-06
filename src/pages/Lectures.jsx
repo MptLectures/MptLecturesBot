@@ -26,6 +26,7 @@ const Lectures = () => {
                 setLoading(true);
 
                 const data = await getResponse(id);
+                console.log(data);
 
                 setHeader(data.header);
 
@@ -43,7 +44,6 @@ const Lectures = () => {
 
     const renderRichText = (richTextArray) => {
         if (!Array.isArray(richTextArray)) return null;
-        console.log(richTextArray);
         return richTextArray.map((text, index) => {
             const { annotations = {}, text: { content = '' } = {} } = text;
             let style = {};
@@ -90,11 +90,12 @@ const Lectures = () => {
         if (!Array.isArray(contents)) return null;
 
         return contents.map((item, index) => {
-            const ListTag = tags[item.type];
+            const type = item.type;
+            const ListTag = tags[type];
             if (!ListTag) return null;
             listCounters = item.type !== 'numbered_list_item' ? 0 : listCounters + 1;
 
-            switch (item.type) {
+            switch (type) {
                 case 'numbered_list_item':
                     return (
                         <ol key={index}>
@@ -116,7 +117,7 @@ const Lectures = () => {
                         </pre>
                     );
                 case 'image':
-                    return <img key={index} src={item.content?.file?.url} alt={item.content?.title || 'Image'}/>;
+                    return <img className={type} key={index} src={item.content?.file?.url} alt={item.content?.title || 'Image'}/>;
                 case 'table':
                     return (
                         <table>
@@ -152,14 +153,14 @@ const Lectures = () => {
                 case 'equation':
                     return <Latex content={item.content.expression}/>
                 case 'child_page':
-                    return <button key={index} onClick={() => {navigate(`${location.pathname}/${item.id}`);}} className={item.type}>
+                    return <button key={index} onClick={() => {navigate(`${location.pathname}/${item.id}`);}} className={type}>
                                 {item.content?.title}
                                 {renderRichText(item.content?.rich_text ? item.content?.rich_text : item.content)}
                                 {item.children && renderContent(item.children)}
                             </button>
                 default:
-                    return <ListTag key={index} className={item.type}>
-                        {/*{item.content?.title}*/}
+                    return <ListTag key={index} className={type}>
+                        <text>{item.content?.title}</text>
                         {renderRichText(item.content?.rich_text)}
                         {item.children && renderContent(item.children)}
                     </ListTag>;
@@ -168,8 +169,8 @@ const Lectures = () => {
     };
 
     return (
-        <div className="lectures" style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ width: '95%' }}>
+        <div className="lectures">
+            <div className="lectures-container">
                 {!icon?.url ? <h1 className={"logo"}>{icon}</h1> : <img src={icon.url} className={"logoImg"} />}
                 <h1>{renderRichText(header)}</h1>
                 <div >
@@ -187,7 +188,6 @@ const Lectures = () => {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             return data;
         } else {
             throw new Error("Bad request");

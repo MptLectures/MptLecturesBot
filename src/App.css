@@ -277,10 +277,14 @@ body {
 */
 
 pre {
-  background-color: #292927;
+  background-color: var(--light-gray);
   padding: 1em;
   border-radius: 5px;
   overflow: auto;
+}
+
+code span {
+  color: #EB5757;
 }
 
 .callout {
@@ -347,6 +351,8 @@ thead {
 }
 
 .child_page {
+  display: flex;
+  justify-content: center;
   width: 100%;
   margin-top: 2px;
   margin-bottom: 2px;
@@ -360,15 +366,25 @@ thead {
 
 .child_page span {
   display: block;
-  width: 100%;
+  color: var(--back)!important;
+  font-weight: normal!important;
+  text-decoration: none!important;
 }
 
-.callout-content {
+/*.callout-content {
   white-space: pre-line;
-}
+}*/
 
 .lectures {
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.lectures-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .lectures * {
@@ -378,4 +394,51 @@ thead {
 .lectures h1 {
   margin: 10px 0;
 }
+.lectures h1 span {
+  color: var(--back)!important;
+  font-weight: bold!important;
+  text-decoration: none!important;
+}
 
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 7px auto;
+}
+
+ul, ol {
+  padding-left: 20px;
+  margin: 7px 0;
+}
+
+p, h2, h3, h4 {
+  margin: 7px 0;
+}
+
+.lectures h2 {
+  font-size: 2em;
+}
+
+.lectures h3 {
+  font-size: 1.5em;
+}
+
+.lectures h4 {
+  font-size: 1.25em;
+}
+
+.child_database {
+  margin: 10px 0;
+}
+
+.child_database text {
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+@media (max-width: 992px) {
+  .lectures-container {
+    width: 90%;
+  }
+}
